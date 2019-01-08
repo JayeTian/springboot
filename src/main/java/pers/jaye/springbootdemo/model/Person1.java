@@ -17,24 +17,30 @@ import java.util.Map;
  * @Version 1.0
  */
 @Component
-@PropertySource(value = {"classpath:person.properties"})
 public class Person1 {
 
+    @Value("${person.first-name}")
     private String firstName;
 
-    @Value("${person1.name}")
+    @Value("${person.name}")
     private String name;
 
+    @Value("${person.age}")
     private int age;
 
+    @Value("${person.boss}")
     private boolean boss;
 
+    @Value("${person.birth}")
     private Date birth;
 
+    /*@Value("${person.maps}")*/
     private Map<String, String> maps;
 
+   /* @Value("${person.list}")*/
     private List<String> list;
 
+    /*@Value("${person.car}")*/
     private Car car;
 
     public String getName() {
@@ -103,7 +109,7 @@ public class Person1 {
 
     @Override
     public String toString() {
-        return "Person{" +
+        return "Person1{" +
                 "firstName='" + firstName + '\'' +
                 ", name='" + name + '\'' +
                 ", age=" + age +

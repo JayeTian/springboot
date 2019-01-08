@@ -5,6 +5,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.sql.DataSource;
+
 /**
  * Druid 数据源配置类
  *
@@ -18,8 +20,11 @@ public class DruidDataSourceConfig {
 
     @ConfigurationProperties(prefix = "spring.datasource")
     @Bean
-    public DruidDataSource getDruidDataSource() {
+    public DataSource getDruidDataSource() {
         return new DruidDataSource();
     }
+
+
+
 
 }
