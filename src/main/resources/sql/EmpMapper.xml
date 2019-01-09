@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pers.jaye.springbootdemo.mapper.EmpMapper">
+
+    <resultMap id="BaseResultMap" type="pers.jaye.springbootdemo.model.EmpDo">
+        <result column="eid" property="eid"/>
+        <result column="ename" property="ename"/>
+        <result column="job" property="job"/>
+        <result column="deptno" property="deptno"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+		eid,ename,job,deptno
+	</sql>
+
+
+    <select id="listAllEmp" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from emp
+    </select>
+
+
+</mapper>
