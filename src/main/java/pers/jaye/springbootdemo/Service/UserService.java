@@ -1,14 +1,15 @@
 package pers.jaye.springbootdemo.Service;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pers.jaye.springbootdemo.mapper.UserMapper;
 import pers.jaye.springbootdemo.model.UserDo;
 
 import javax.annotation.Resource;
-import java.beans.Expression;
 import java.util.List;
 
 /**
@@ -20,12 +21,14 @@ import java.util.List;
  * @Version 1.0
  */
 @Service
+@CacheConfig(cacheNames = "User")
 public class UserService {
 
     @Resource
     private UserMapper userMapper;
 
     @Transactional
+    @CacheEvict(allEntries = true)
     public void insertUser(UserDo userDo) {
         userMapper.insertUser(userDo);
     }
@@ -36,6 +39,7 @@ public class UserService {
         int i = 1 / 0;
     }
 
+    @Cacheable
     public List<UserDo> listAllUser() {
         return userMapper.listAllUser();
     }

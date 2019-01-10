@@ -47,7 +47,7 @@ public class TestController {
 
     @RequestMapping("listAllDept")
     public int listAllDept() {
-        List<DeptDo> deptDos = deptMapper.listAllEmpDos();
+        List<DeptDo> deptDos = deptMapper.listAllDepts();
         return deptDos.size();
     }
 

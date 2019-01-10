@@ -1,5 +1,6 @@
 package pers.jaye.springbootdemo;
 
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,10 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import pers.jaye.springbootdemo.Service.UserService;
 import pers.jaye.springbootdemo.mapper.DeptMapper;
 import pers.jaye.springbootdemo.mapper.EmpMapper;
-import pers.jaye.springbootdemo.model.Car;
-import pers.jaye.springbootdemo.model.Person;
-import pers.jaye.springbootdemo.model.Person1;
-import pers.jaye.springbootdemo.model.UserDo;
+import pers.jaye.springbootdemo.model.*;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -27,9 +25,11 @@ public class SpringBootDemoApplicationTests {
     @Resource
     private Person person;
 
-
     @Resource
     private Person1 person1;
+
+    @Resource
+    private Person2 person2;
 
     @Resource
     private DataSource dataSource;
@@ -52,6 +52,7 @@ public class SpringBootDemoApplicationTests {
     public void contextLoads() {
         System.out.printf(person.toString());
         System.out.printf(person1.toString());
+        System.out.printf(person2.toString());
     }
 
     @Test
@@ -99,15 +100,16 @@ public class SpringBootDemoApplicationTests {
 
     @Test
     public void mybatisTest() {
-        deptMapper.listAllEmpDos();
-        empMapper.listAllEmp();
+        List<DeptDo> deptDos = deptMapper.listAllDepts();
+        Assert.assertTrue(deptDos.size() == 34);
+
+        List<EmpDo> empDos = empMapper.listAllEmp();
+        Assert.assertTrue(empDos.size() == 800000);
     }
 
 
-
     @Test
-//    @Transactional
-    public void transactionalTest(){
+    public void transactionalTest() {
         UserDo userDo = new UserDo();
         userDo.setId("5");
         userDo.setName("Jaye5");
@@ -115,6 +117,20 @@ public class SpringBootDemoApplicationTests {
 //        userService.insertUser1(userDo);
     }
 
+
+    @Test
+    public void redisTest(){
+        List<UserDo> userDos = userService.listAllUser();
+        System.out.printf(userDos.toString());
+    }
+
+    @Test
+    public void redisTest1(){
+        UserDo userDo = new UserDo();
+        userDo.setId("7");
+        userDo.setName("Jaye7");
+        userService.insertUser(userDo);
+    }
 
 }
 

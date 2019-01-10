@@ -6,10 +6,13 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
+    url:  jdbc:mysql://192.168.0.110:3306/testdata?characterEncoding\=UTF-8&useUnicode\=true&allowMultiQueries\=true
+    username: root
+    password: root
     initial-size: 5
     min-idle: 5
     max-active: 30
-    max-wait: 60000
+    max-wait: 30000
     time-between-eviction-runs-millis: 60000
     min-evictable-idle-time-millis: 300000
     validation-query: SELECT 1 FROM DUAL
@@ -18,38 +21,31 @@ spring:
     test-on-return: false
     pool-prepared-statements: true
     max-pool-prepared-statement-per-connection-size: 20
+    filters: stat,wall,log4j
+    use-global-data-source-stat: true
+    connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+  redis:
+    database: 0
+    host: 192.168.1.205
+    port: 6379
+    password:
+    jedis:
+      pool:
+        min-idle: 5
+        max-idle: 8
+        max-active: 30
+        max-wait: 30000
+    timeout: 30000   
 mybatis:
   mapper-locations: classpath:sql/*.xml
-person:
-  first-name: 田
-  name: 杰熠
-  age: 28
-  birth: 1991/10/17
-  boss: true
-  maps: {one: 张三, two: 李四}
-  list: [王五,孙六]
-  car:
-    name: ${person.name}_凯迪拉克
-    price: ${random.long(500000)}
 ---
 spring:
   profiles: pro
-  datasource:
-    url:  jdbc:mysql://192.168.0.110:3306/testdata?characterEncoding\=UTF-8&useUnicode\=true&allowMultiQueries\=true
-    username: root
-    password: root
 server:
   port: 8000
 ---
 spring:
   profiles: dev
-  datasource:
-    url:  jdbc:mysql://192.168.0.110:3306/testdata?characterEncoding\=UTF-8&useUnicode\=true&allowMultiQueries\=true
-    username: root
-    password: root
-    filters: stat,wall,log4j
-    use-global-data-source-stat: true
-    connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
   output:
     ansi:
       enabled: always
