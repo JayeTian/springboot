@@ -1,8 +1,6 @@
 spring:
   profiles:
     active: dev
-  mvc:
-    date-format: yyyy-MM-dd
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
@@ -35,9 +33,7 @@ spring:
         max-idle: 8
         max-active: 30
         max-wait: 30000
-    timeout: 30000   
-mybatis:
-  mapper-locations: classpath:sql/*.xml
+    timeout: 30000
 ---
 spring:
   profiles: pro
